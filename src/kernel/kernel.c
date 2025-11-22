@@ -42,7 +42,7 @@ void wait(int count_max) {
 }
 
 /* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем) */
-void kmain(void) {
+void kmain(void) { 
 
     printChar(50, 22, 'C');
 
@@ -56,7 +56,7 @@ void kmain(void) {
 
     wait(500000000);
 
-    loading_movement(25, 25, 0x07);
+    loading_movement(25, 25, 0x07); //
 
     return;
 }
