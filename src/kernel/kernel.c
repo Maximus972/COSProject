@@ -1,10 +1,19 @@
 /* kernel.c */
 #include "../gdt.h"
+#include "../libs/base_functions.h"
 
 char *vidptr = (char*)0xB8000; // Видеобуффер
 int x_coordinate = 0;
 int y_coordinate = 0;
 
+// TODO: Переделать функцию и перенести ее в другое место
+/**
+ * Функция, выводящая на по определенным
+ * координатам экрана символ
+ * @param x Координата x на экране
+ * @param y Координата y на экране
+ * @param character Символ, выводимый на экран
+ */
 void printChar(int x, int y, char character) {
     int pointSymbol = y * 80 + x * 2;
     int pointAttribute = pointSymbol + 1;
@@ -33,6 +42,7 @@ void loading_movement(int x, int y, int attribute) { //Функция вывод
     }
 }
 
+// TODO: Функция ожидания, необходимо ее переделать
 void wait(int count_max) {
     int count = 0; 
     while (count <= count_max) {
@@ -48,11 +58,13 @@ void kmain(void) {
 
     wait(500000000);
 
-    gdt_init();
+    in_out_wait();
 
-    wait(500000000);
+    gdt_init(); // * Инициализация GDT
 
-    printChar(30, 11, 'B');
+    wait(500000000); 
+
+    printChar(30, 11, 'B'); 
 
     wait(500000000);
 

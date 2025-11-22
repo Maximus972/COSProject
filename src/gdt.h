@@ -1,3 +1,4 @@
+//TODO: Непонятно для чего это
 #ifndef INCL_GDT
 #define INCL_GDT
 

@@ -2,7 +2,8 @@ global gdt_init
 
 section .data
 
-gdt_base:
+; TODO: Переделать таблицу, узнать каким образом
+gdt_base: ; GDT задает здесь плоскую модель памяти.
     dd 0x00000000
     dd 0x00000000
 
@@ -34,7 +35,7 @@ gdt_init:
     mov es, ax
     mov fs, ax
     mov gs, ax
-    mov ss, ax
+    mov ss, ax ;! Стек растет вниз, а тут база стека по адресу 0, куда ему вниз расти???
 
     jmp CODE_SEL:.reload_cs
 
