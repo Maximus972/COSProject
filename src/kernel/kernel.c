@@ -20,28 +20,20 @@ void wait(int count_max) {
 /* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем)
  */
 void kmain(void) {
-
+  interrupt_disabled();
   print_char(50, 22, 'C');
-
-  wait(500000000);
-
   in_out_wait();
-
   gdt_init(); // * Инициализация GDT
-
-  wait(500000000);
-
   print_char(30, 11, 'B');
-
-  wait(500000000);
-
-  PIC_remap();
-
-  load_IDT();
-
   init_keyboard();
-
+  load_IDT();
+  PIC_remap();
+  PIC_update_mask(0, 1, 0);
+  interrupt_enabled();
+  for (;;) {
+    asm volatile("hlt");
+  }
   loading_movement(25, 25, 0x07); //
-
+  // wait(500000000);
   return;
 }

@@ -17,8 +17,8 @@ struct IDT_BASE {
 struct IDT_DESCRIPTOR IDT[256];
 struct IDT_BASE IDT_BASE;
 
-unsigned char IRQ_MASTER_MASK = 0xff;
-unsigned char IRQ_SLAVE_MASK = 0xff;
+unsigned char IRQ_MASTER_MASK = 0xFF;
+unsigned char IRQ_SLAVE_MASK = 0xFF;
 
 void PIC_remap() {
   // ICW1
@@ -30,7 +30,7 @@ void PIC_remap() {
   // ICW2
   outb(0x21, 0x20);
   in_out_wait();
-  outb(0xA1, 0x20);
+  outb(0xA1, 0x28);
   in_out_wait();
 
   // ICW3
@@ -45,12 +45,12 @@ void PIC_remap() {
   outb(0xA1, 0x01);
   in_out_wait();
 
-  outb(0x21, 0b11111100);
+  outb(0x21, 0xFF);
   in_out_wait();
   outb(0xA1, 0xFF);
   in_out_wait();
 
-  PIC_set_mask(0b1111111, 0xFF);
+  // PIC_set_mask(0b1111111, 0xFF);
 }
 
 void IDT_reg_handler(int number, unsigned short segm_selector,
@@ -90,5 +90,5 @@ void load_IDT() {
   int IDT_COUNT = sizeof(IDT) / sizeof(IDT[0]);
   IDT_BASE.base = (unsigned int)(&IDT[0]);
   IDT_BASE.limit = (sizeof(struct IDT_DESCRIPTOR) * IDT_COUNT) - 1;
-  asm("lidt %0" : : "m"(IDT));
+  asm volatile("lidt %0" : : "m"(IDT_BASE));
 }
