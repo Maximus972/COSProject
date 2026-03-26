@@ -14,7 +14,6 @@ gdt_code:
 gdt_data:
     dd 0x0000FFFF
     dd 0x00CF9200
-
 gdt_end:
 
 gdt:
@@ -27,7 +26,6 @@ DATA_SEL equ gdt_data - gdt_base
 section .text
 
 gdt_init:
-    
     lgdt [gdt]
 
     mov ax, DATA_SEL

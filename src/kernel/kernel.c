@@ -1,74 +1,47 @@
 /* kernel.c */
-#include "../gdt.h"
-#include "../libs/base_functions.h"
+#include "../libs/drivers/keyboard.h"
+#include "../libs/drivers/terminal/terminal.h"
+#include "../libs/interrupts.h"
+#include "IDT_PIC.h"
+#include "gdt.h"
 
-char *vidptr = (char*)0xB8000; // Видеобуффер
 int x_coordinate = 0;
 int y_coordinate = 0;
 
-// TODO: Переделать функцию и перенести ее в другое место
-/**
- * Функция, выводящая на по определенным
- * координатам экрана символ
- * @param x Координата x на экране
- * @param y Координата y на экране
- * @param character Символ, выводимый на экран
- */
-void printChar(int x, int y, char character) {
-    int pointSymbol = y * 80 + x * 2;
-    int pointAttribute = pointSymbol + 1;
-    vidptr[pointSymbol] = character;
-    vidptr[pointAttribute] = 0x07;
-}
-
-void loading_movement(int x, int y, int attribute) { //Функция вывода на экран загрузки
-    const char *loading = "\\|/-\\\0";
-    int i = y * 80 + x * 2;
-    int j = 0;
-    while (loading[j] != '\0') {
-        vidptr[i] = loading[j];   // Символ
-        vidptr[i + 1] = attribute;   // Атрибут
-        ++j;
-        // i = i + 2;
-        if (loading[j] == '\0') {
-            j = j - 4;
-        }
-        int count = 0;
-        while (count <= 50000000)
-        {
-            asm volatile("" :::);
-            count = count + 1;
-        }
-    }
-}
-
 // TODO: Функция ожидания, необходимо ее переделать
 void wait(int count_max) {
-    int count = 0; 
-    while (count <= count_max) {
-        asm volatile("" :::);
-        count = count + 1;
-    }
+  int count = 0;
+  while (count <= count_max) {
+    asm volatile("" :::);
+    count = count + 1;
+  }
 }
 
-/* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем) */
-void kmain(void) { 
+/* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем)
+ */
+void kmain(void) {
 
-    printChar(50, 22, 'C');
+  print_char(50, 22, 'C');
 
-    wait(500000000);
+  wait(500000000);
 
-    in_out_wait();
+  in_out_wait();
 
-    gdt_init(); // * Инициализация GDT
+  gdt_init(); // * Инициализация GDT
 
-    wait(500000000); 
+  wait(500000000);
 
-    printChar(30, 11, 'B'); 
+  print_char(30, 11, 'B');
 
-    wait(500000000);
+  wait(500000000);
 
-    loading_movement(25, 25, 0x07); //
+  PIC_remap();
 
-    return;
+  load_IDT();
+
+  init_keyboard();
+
+  loading_movement(25, 25, 0x07); //
+
+  return;
 }

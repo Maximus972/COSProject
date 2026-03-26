@@ -9,4 +9,7 @@ extern unsigned char inb(unsigned short port);
 extern unsigned short inw(unsigned short port);
 extern unsigned int ind(unsigned short port);
 
+void interrupt_enabled();
+void interrupt_disabled();
+
 #endif
