@@ -11,5 +11,5 @@ extern unsigned int ind(unsigned short port);
 
 void interrupt_enabled();
 void interrupt_disabled();
-
+void end_interrupt();
 #endif

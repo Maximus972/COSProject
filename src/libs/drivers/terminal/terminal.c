@@ -8,7 +8,7 @@ char *vidptr = (char *)0xB8000; // Видеобуффер
  * @param character Символ, выводимый на экран
  */
 void print_char(int x, int y, char character) {
-  int pointSymbol = y * 80 + x * 2;
+  int pointSymbol = (y * 80 + x) * 2;
   int pointAttribute = pointSymbol + 1;
   vidptr[pointSymbol] = character;
   vidptr[pointAttribute] = 0x07;
@@ -17,7 +17,7 @@ void print_char(int x, int y, char character) {
 void loading_movement(int x, int y,
                       int attribute) { // Функция вывода на экран загрузки
   const char *loading = "\\|/-\\\0";
-  int i = y * 80 + x * 2;
+  int i = (y * 80 + x) * 2;
   int j = 0;
   while (loading[j] != '\0') {
     vidptr[i] = loading[j];    // Символ

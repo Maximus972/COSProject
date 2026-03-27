@@ -29,11 +29,15 @@ void kmain(void) {
   load_IDT();
   PIC_remap();
   PIC_update_mask(0, 1, 0);
+  wait(500000000);
+
   interrupt_enabled();
-  for (;;) {
-    asm volatile("hlt");
-  }
-  loading_movement(25, 25, 0x07); //
+  wait(500000000);
+
+  // for (;;) {
+  //   asm volatile("hlt");
+  // }
+  loading_movement(25, 22, 0x07); //
   // wait(500000000);
   return;
 }
