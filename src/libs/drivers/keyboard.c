@@ -6,7 +6,11 @@ extern void asm_keyboard_handler();
 
 void keyboard_handler() {
   unsigned char scancode = inb(0x60);
+  // if (scancode < 130) {
   print_char(50, 22, scancode);
+  // } else {
+  //   clear_screen();
+  // }
   end_interrupt();
 }
 

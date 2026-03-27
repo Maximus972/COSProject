@@ -1,6 +1,7 @@
 /* kernel.c */
 #include "../libs/drivers/keyboard.h"
 #include "../libs/drivers/terminal/terminal.h"
+#include "../libs/drivers/timer/timer.h"
 #include "../libs/interrupts.h"
 #include "IDT_PIC.h"
 #include "gdt.h"
@@ -26,18 +27,20 @@ void kmain(void) {
   gdt_init(); // * Инициализация GDT
   print_char(30, 11, 'B');
   init_keyboard();
+  init_timer(100);
   load_IDT();
   PIC_remap();
+  PIC_update_mask(0, 0, 0);
   PIC_update_mask(0, 1, 0);
   wait(500000000);
 
   interrupt_enabled();
   wait(500000000);
 
-  // for (;;) {
-  //   asm volatile("hlt");
-  // }
-  loading_movement(25, 22, 0x07); //
+  for (;;) {
+    asm volatile("hlt");
+  }
+  // loading_movement(25, 22, 0x07); //
   // wait(500000000);
   return;
 }

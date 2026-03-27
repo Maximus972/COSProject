@@ -1,3 +1,4 @@
+#include "terminal.h"
 char *vidptr = (char *)0xB8000; // Видеобуффер
 
 /**
@@ -32,5 +33,11 @@ void loading_movement(int x, int y,
       asm volatile("" :::);
       count = count + 1;
     }
+  }
+}
+
+void clear_screen() {
+  for (int i = 0; i < 4000; i++) {
+    vidptr[i] = 0;
   }
 }
