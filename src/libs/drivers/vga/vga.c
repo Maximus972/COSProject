@@ -1,6 +1,6 @@
 #include "vga.h"
 
-static uint_8 *const VGA_MEMORY = (uint_8 *)0xB8000;
+static uint_16 *const VGA_MEMORY = (uint_16 *)0xB8000;
 
 uint_8 vga_make_color(uint_8 fg, uint_8 bg) { return fg | (bg << 4); }
 

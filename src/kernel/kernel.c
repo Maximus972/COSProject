@@ -35,7 +35,7 @@ void kmain(void) {
   PIC_remap();
   PIC_update_mask(0, 0, 0);
   PIC_update_mask(0, 1, 0);
-  // vga_clear(color);
+  vga_clear(color);
   vga_put_entry_at('Y', color, 10, 10);
   wait(500000000);
 
