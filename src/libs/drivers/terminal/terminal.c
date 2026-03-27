@@ -41,3 +41,11 @@ void clear_screen() {
     vidptr[i] = 0;
   }
 }
+
+// void print_string(int x, int y, char *string) {
+//   int char_count = 0;
+//   while (string[char_count] != '\0') {
+//     print_char(x, y, string[char_count]);
+//     char_count = char_count + 1;
+//   }
+// }

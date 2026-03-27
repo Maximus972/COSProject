@@ -2,6 +2,7 @@
 #include "../libs/drivers/keyboard.h"
 #include "../libs/drivers/terminal/terminal.h"
 #include "../libs/drivers/timer/timer.h"
+#include "../libs/drivers/vga/vga.h"
 #include "../libs/interrupts.h"
 #include "IDT_PIC.h"
 #include "gdt.h"
@@ -21,17 +22,21 @@ void wait(int count_max) {
 /* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем)
  */
 void kmain(void) {
+  uint_8 color = vga_make_color(VGA_COLOR_BLACK, VGA_COLOR_WHITE);
   interrupt_disabled();
-  print_char(50, 22, 'C');
+  vga_put_entry_at('A', color, 2, 2);
   in_out_wait();
   gdt_init(); // * Инициализация GDT
   print_char(30, 11, 'B');
   init_keyboard();
   init_timer(100);
+  vga_put_entry_at('B', color, 4, 4);
   load_IDT();
   PIC_remap();
   PIC_update_mask(0, 0, 0);
   PIC_update_mask(0, 1, 0);
+  // vga_clear(color);
+  vga_put_entry_at('Y', color, 10, 10);
   wait(500000000);
 
   interrupt_enabled();
