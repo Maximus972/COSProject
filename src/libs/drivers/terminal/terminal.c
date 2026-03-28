@@ -3,7 +3,7 @@
 
 static int terminal_row;
 static int terminal_column;
-static uint_16 terminal_color;
+static uint_8 terminal_color;
 
 static void terminal_newline() {
   terminal_column = 0;
