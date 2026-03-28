@@ -18,6 +18,6 @@ int init_timer(unsigned int frequancy) {
 
 void timer_handler() {
   timer_ticks++;
-  print_char(45, 10, timer_ticks);
+  // terminal_putchar(timer_ticks);
   end_interrupt();
 }

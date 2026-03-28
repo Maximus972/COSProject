@@ -2,45 +2,30 @@
 #include "../libs/drivers/keyboard.h"
 #include "../libs/drivers/terminal/terminal.h"
 #include "../libs/drivers/timer/timer.h"
-#include "../libs/drivers/vga/vga.h"
 #include "../libs/interrupts.h"
 #include "IDT_PIC.h"
 #include "gdt.h"
 
-int x_coordinate = 0;
-int y_coordinate = 0;
-
-// TODO: Функция ожидания, необходимо ее переделать
-void wait(int count_max) {
-  int count = 0;
-  while (count <= count_max) {
-    asm volatile("" :::);
-    count = count + 1;
-  }
-}
-
 /* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем)
  */
 void kmain(void) {
-  uint_8 color = vga_make_color(VGA_COLOR_BLACK, VGA_COLOR_WHITE);
   interrupt_disabled();
-  vga_put_entry_at('A', color, 2, 2);
-  in_out_wait();
-  gdt_init(); // * Инициализация GDT
-  print_char(30, 11, 'B');
+  terminal_write("Hello ContraOS!\n");
+  terminal_init();
+  terminal_write("Terminal init success!\n");
+  gdt_init();
+  terminal_write("GDB init success!\n");
   init_keyboard();
+  terminal_write("Keyboard init success!\n");
   init_timer(100);
-  vga_put_entry_at('B', color, 4, 4);
+  terminal_write("Timer init success!\n");
   load_IDT();
+  terminal_write("IDT init success!\n");
   PIC_remap();
   PIC_update_mask(0, 0, 0);
   PIC_update_mask(0, 1, 0);
-  vga_clear(color);
-  vga_put_entry_at('Y', color, 10, 10);
-  wait(500000000);
-
   interrupt_enabled();
-  wait(500000000);
+  terminal_write("Interrupts enabled!\n");
 
   for (;;) {
     asm volatile("hlt");
