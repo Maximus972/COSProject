@@ -4,8 +4,8 @@
 extern void asm_keyboard_handler();
 
 static volatile char keyboard_buffer[128];
-static volatile int keyboard_read_index;
-static volatile int keyboard_write_index;
+static volatile int keyboard_read_index = 0;
+static volatile int keyboard_write_index = 0;
 unsigned char ascii[] = {0,    27,  '1', '2',  '3',  '4',  '5', '6', '7',  '8',
                          '9',  '0', '-', '=',  '\b', '\t', 'q', 'w', 'e',  'r',
                          't',  'y', 'u', 'i',  'o',  'p',  '[', ']', '\n', 0,
@@ -17,7 +17,6 @@ static char scancode_to_ascii(unsigned char scancode) {
   if (scancode > 58)
     return 0;
   return ascii[scancode];
-  return (char)0;
 }
 
 static void keyboard_buffer_put(char c) {

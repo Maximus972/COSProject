@@ -1,4 +1,5 @@
 /* kernel.c */
+#include "../libs/drivers/console/console.h"
 #include "../libs/drivers/keyboard/keyboard.h"
 #include "../libs/drivers/terminal/terminal.h"
 #include "../libs/drivers/timer/timer.h"
@@ -33,13 +34,14 @@ void kmain(void) {
   interrupt_enabled();
   terminal_write("Interrupts enabled!\n");
   terminal_write_with_color("ERROR: error message!", 4);
-
+  console_init();
   for (;;) {
     asm volatile("hlt");
 
-    while (keyboard_has_char()) {
-      char c = keyboard_get_char();
-      terminal_putchar(c);
+    console_poll_input();
+    if (console_has_line()) {
+      char *line = console_get_line();
+      console_print_prompt();
     }
   }
   // loading_movement(25, 22, 0x07); //

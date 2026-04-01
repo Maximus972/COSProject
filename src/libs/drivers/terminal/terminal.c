@@ -1,5 +1,4 @@
 #include "terminal.h"
-#include "../keyboard/keyboard.h"
 #include "../vga/vga.h"
 
 static int terminal_row;
@@ -71,6 +70,15 @@ void terminal_write_with_color(const char *str, unsigned char string_color) {
     }
     i++;
   }
+}
+
+void terminal_backspace() {
+  if (terminal_column == 0) {
+    return;
+  }
+
+  terminal_column--;
+  vga_put_entry_at(' ', terminal_color, terminal_column, terminal_row);
 }
 
 void terminal_clear() {
