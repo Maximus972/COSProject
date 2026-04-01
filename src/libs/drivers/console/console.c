@@ -6,7 +6,10 @@ static char line_buffer[128];
 static int line_length = 0;
 static int line_ready = 0;
 
-void console_print_prompt() { terminal_write("master$ "); }
+void console_print_prompt() {
+  terminal_putchar('\n');
+  terminal_write("master$ ");
+}
 void console_init() {
   line_length = 0;
   line_ready = 0;
