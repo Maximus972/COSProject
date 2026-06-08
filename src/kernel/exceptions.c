@@ -1,6 +1,6 @@
-#include "exceptions.h"
-#include "../libs/drivers/terminal/terminal.h"
-#include "IDT_PIC.h"
+#include "kernel/exceptions.h"
+#include "libs/drivers/terminal/terminal.h"
+#include "kernel/IDT_PIC.h"
 
 extern void isr0();
 extern void isr6();

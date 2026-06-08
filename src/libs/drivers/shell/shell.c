@@ -1,6 +1,6 @@
 #include "shell.h"
-#include "../console/console.h"
-#include "../terminal/terminal.h"
+#include "libs/drivers/console/console.h"
+#include "libs/drivers/terminal/terminal.h"
 
 static int string_equals(const char *a, const char *b) {
   int i = 0;

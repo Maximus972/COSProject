@@ -1,7 +1,7 @@
-#include "timer.h"
-#include "../../../kernel/IDT_PIC.h"
-#include "../../interrupts.h"
-#include "../terminal/terminal.h"
+#include "libs/drivers/timer/timer.h"
+#include "kernel/IDT_PIC.h"
+#include "libs/drivers/terminal/terminal.h"
+#include "libs/interrupts.h"
 
 extern void asm_timer_handler();
 

@@ -1,4 +1,4 @@
-#include "vga.h"
+#include "libs/drivers/vga/vga.h"
 
 static uint_16 *const VGA_MEMORY = (uint_16 *)0xB8000;
 

@@ -1,6 +1,6 @@
-#include "console.h"
-#include "../keyboard/keyboard.h"
-#include "../terminal/terminal.h"
+#include "libs/drivers/console/console.h"
+#include "libs/drivers/keyboard/keyboard.h"
+#include "libs/drivers/terminal/terminal.h"
 
 static char line_buffer[128];
 static int line_length = 0;

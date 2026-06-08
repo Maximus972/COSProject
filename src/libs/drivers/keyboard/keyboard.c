@@ -1,5 +1,5 @@
-#include "../../../kernel/IDT_PIC.h"
-#include "../../interrupts.h"
+#include "kernel/IDT_PIC.h"
+#include "libs/interrupts.h"
 
 extern void asm_keyboard_handler();
 

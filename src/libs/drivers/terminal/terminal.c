@@ -1,5 +1,5 @@
-#include "terminal.h"
-#include "../vga/vga.h"
+#include "libs/drivers/terminal/terminal.h"
+#include "libs/drivers/vga/vga.h"
 
 static int terminal_row;
 static int terminal_column;

@@ -1,12 +1,12 @@
 /* kernel.c */
-#include "../libs/drivers/keyboard/keyboard.h"
-#include "../libs/drivers/shell/shell.h"
-#include "../libs/drivers/terminal/terminal.h"
-#include "../libs/drivers/timer/timer.h"
-#include "../libs/interrupts.h"
-#include "IDT_PIC.h"
-#include "exceptions.h"
-#include "gdt.h"
+#include "kernel/IDT_PIC.h"
+#include "kernel/exceptions.h"
+#include "kernel/gdt.h"
+#include "libs/drivers/keyboard/keyboard.h"
+#include "libs/drivers/shell/shell.h"
+#include "libs/drivers/terminal/terminal.h"
+#include "libs/drivers/timer/timer.h"
+#include "libs/interrupts.h"
 
 /* Объявляем функцию, которая принимает аргументы от GRUB (пока не используем)
  */
