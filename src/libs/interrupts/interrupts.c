@@ -1,4 +1,4 @@
-#include "libs/interrupts.h"
+#include "libs/interrupts/interrupts.h"
 
 void interrupt_enabled() { asm("sti"); }
 void interrupt_disabled() { asm("cli"); }

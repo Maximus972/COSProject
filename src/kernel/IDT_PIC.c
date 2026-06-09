@@ -1,5 +1,5 @@
 #include "kernel/IDT_PIC.h"
-#include "libs/interrupts.h"
+#include "libs/interrupts/interrupts.h"
 
 struct IDT_DESCRIPTOR {
   unsigned short addr_low_bits;

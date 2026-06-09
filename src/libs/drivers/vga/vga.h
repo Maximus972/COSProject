@@ -4,8 +4,7 @@
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 
-typedef unsigned char uint_8;
-typedef unsigned short uint_16;
+#include "libs/types/types.h"
 
 enum vga_color {
   VGA_COLOR_BLACK = 0,
